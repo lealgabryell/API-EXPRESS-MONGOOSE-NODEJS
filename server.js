@@ -1,5 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import { Product } from './models/products.js';
+
 
 const app = express();
 const port = 3300;
@@ -50,11 +52,7 @@ app.get(('/products/:id'), (req, res) => {
 
 app.post(('/products'), (req, res) => {
   const product = new Product(req.body);
-  product.save((err, newProduct) => {
-    if (err)
-      return res.status(500).send(err);
-    res.send(newProduct);
-  });
+  product.save(err, req.params.body)
 });
 
 app.put(('/products/:id'), (req, res) => {
